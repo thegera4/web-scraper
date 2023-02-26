@@ -6,7 +6,9 @@ import ServerlessHttp from 'serverless-http';
 export const app = express();
 const url = 'https://www.elsiglodetorreon.com.mx';
 
-app.get('/', (req, res) => {
+const router = express.Router();
+
+router.get('/', (req, res) => {
   axios(url)
     .then(response => {
       const html = response.data;
@@ -26,7 +28,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/.netlify/functions/index', app);
+app.use('/.netlify/functions/index', router);
 export const handler = ServerlessHttp(app);
 
 //app.listen(3001, () => console.log(`Server running on port 3001`));
